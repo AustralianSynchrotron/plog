@@ -1,0 +1,2 @@
+run_rfideology - starts the driver that talks to the rfid scanner
+run_plog_server - starts the PSS Logger server and waits for post events from run_rfideology

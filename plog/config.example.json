@@ -1,0 +1,11 @@
+{
+    "host":           "",
+    "dbuser":         "",
+    "password":       "",
+    "database":       "",
+    "session_key":    "",
+    "ldap_server":    "",
+    "ldap_sx":        "",
+    "ldap_dn":        "",
+    "facility_code":  ""
+}
