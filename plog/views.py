@@ -20,6 +20,13 @@ def rfid():
     cardID = request.form['cardID']
     device = request.form['source']
 
+    mod_time = timestamp.split(" ")[1]
+    mod_date = timestamp.split(" ")[0]
+
+    tmp = PssLogData(date=mod_date,time=mod_time,data=cardID,device=device)
+    db.session.add(tmp)
+    db.session.commit()
+
     return cardID
 
 @app.errorhandler(404)
