@@ -7,5 +7,7 @@
     "ldap_server":    "",
     "ldap_sx":        "",
     "ldap_dn":        "",
-    "facility_code":  ""
+    "facility_code":  "",
+    "rfid_host":      "",
+    "rfid_port":      ""
 }

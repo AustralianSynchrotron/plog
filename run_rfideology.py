@@ -4,7 +4,7 @@
 # this will eventually be moved onto the propeller chip when PoE module
 # becomes available and integrated.
 
-from plog.config import facility_code
+from plog.config import facility_code, rfid_host, rfid_port
 
 import serial
 import serial.tools.list_ports
@@ -13,7 +13,10 @@ import requests
 import datetime
 
 DEVICE = 'TEST'  # for interfaces CR,SW,NE,BS,BN,PV,UI
-FACILITY = int(facility_code) # convert string to int
+FACILITY = facility_code
+RFID_SERVER = rfid_host + ":" + rfid_port
+
+print(RFID_SERVER)
 
 def calc_code(hex_string):
     if len(hex_string) != 9:
@@ -73,7 +76,7 @@ try:
                 if res_fac == None:
                     continue
                 try:
-                    r = requests.post("http://localhost:5555/rfid", data={'timestamp':fnow, 'cardID': fetch, 'source': DEVICE})
+                    r = requests.post( RFID_SERVER + "/rfid", data={'timestamp':fnow, 'cardID': fetch, 'source': DEVICE})
                     print("%s> %s %s" % (fnow, r.status_code, r.reason))
                 except requests.exceptions.RequestException as e:
                     now = datetime.datetime.now()

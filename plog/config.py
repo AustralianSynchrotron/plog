@@ -6,7 +6,9 @@ json_data = open('plog/config.json')
 data = json.load(json_data)
 json_data.close()
 
-facility_code = data['facility_code']
+facility_code = int(data['facility_code'])
+rfid_host = data['rfid_host']
+rfid_port = data['rfid_port']
 
 username = data['dbuser']
 password = data['password']
