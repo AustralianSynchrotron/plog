@@ -13,7 +13,7 @@ import requests
 import datetime
 
 DEVICE = 'TEST'  # for interfaces CR,SW,NE,BS,BN,PV,UI
-FACILITY = facility_code
+FACILITY = int(facility_code) # convert string to int
 
 def calc_code(hex_string):
     if len(hex_string) != 9:
@@ -25,6 +25,11 @@ def calc_code(hex_string):
     # extract the facility and code id's
     facility = int(bin_strip[:8],2)
     card_id = int(bin_strip[9:],2)
+
+    # print out the decoded values regardless of validity to aid debugging
+    now = datetime.datetime.now()
+    fnow = now.strftime("%Y-%m-%d %H:%M:%S")
+    print("%s> Decoded: (%s)(%s)" % (fnow, facility, card_id))
 
     # if facility not whats expected there may have been a read error
     # this seems to happen very occasionally, return None
@@ -64,6 +69,9 @@ try:
 
             # if card data (8 chars + \n) then send post request
             if len(fetch) == 9:
+                # if misread then don't bother sending the data...
+                if res_fac == None:
+                    continue
                 try:
                     r = requests.post("http://localhost:5555/rfid", data={'timestamp':fnow, 'cardID': fetch, 'source': DEVICE})
                     print("%s> %s %s" % (fnow, r.status_code, r.reason))
@@ -71,7 +79,7 @@ try:
                     now = datetime.datetime.now()
                     fnow = now.strftime("%Y-%m-%d %H:%M:%S")
                     print("%s> Error: {}".format(e) % fnow)
-                    pass
+                    continue
 
 except KeyboardInterrupt:
     port.close()
