@@ -90,3 +90,4 @@ ENV/
 
 .idea/
 plog/config.json
+/tpss_monitor_form.txt

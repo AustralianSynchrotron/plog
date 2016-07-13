@@ -11,7 +11,7 @@ import requests
 from datetime import datetime,timedelta
 
 date_format = "%Y-%m-%d %H:%M:%S"
-DEBUG = True
+DEBUG = False
 
 def find_cluster_num(timestamp):
     delta_t = timedelta(minutes=20)
@@ -30,10 +30,12 @@ def find_cluster_num(timestamp):
     else:
         print("Creating new cluster!")
         if cluster_search.event_id == None:
-            print("event_id: 1")
+            if DEBUG:
+                print("event_id: 1")
             return 1
         else:
-            print("event_id: " + cluster_search.event_id + 1)
+            if DEBUG:
+                print("event_id: " + str(cluster_search.event_id + 1))
             return cluster_search.event_id + 1
 
 @app.route('/')
@@ -71,9 +73,13 @@ def pv():
     pv_val = request.form['pv_val']
     device = request.form['source']
 
+    if DEBUG:
+        print(timestamp, pv, pv_val, device)
+
     mod_time = timestamp.split(" ")[1]
     mod_date = timestamp.split(" ")[0]
 
+    #eid = find_cluster_num(timestamp)
 
     return pv
 
