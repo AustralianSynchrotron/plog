@@ -40,7 +40,7 @@ def find_cluster_num(timestamp):
 
 @app.route('/')
 def plog():
-    return 'Plogger!'
+    return render_template("main.html")
 
 @app.route('/rfid',methods=['POST'])
 def rfid():
