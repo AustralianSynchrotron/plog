@@ -79,7 +79,15 @@ def pv():
     mod_time = timestamp.split(" ")[1]
     mod_date = timestamp.split(" ")[0]
 
-    #eid = find_cluster_num(timestamp)
+    # determine event_id
+    eid = find_cluster_num(timestamp)
+
+    # create the database entry and commit to file
+    tmp = PssLogData(date=mod_date, time=mod_time, event_id=eid, data=pv_val, pv_name=pv, device=device)
+    db.session.add(tmp)
+    db.session.commit()
+
+    print("Received data: %s : %s : %s" % (timestamp, device, pv_val))
 
     return pv
 

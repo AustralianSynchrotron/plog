@@ -57,11 +57,11 @@ print("Waiting for PV Data Callbacks to Connect...")
 time.sleep(10)
 
 try:
-    INIT = None
+    INIT = None # don't send data during callback registration, now resume normal operation
     now = datetime.datetime.now()
     fnow = now.strftime("%Y-%m-%d %H:%M:%S")
     print("%s> Waiting for PV Data onChange trigger..." % fnow)
-    while True:
+    while True: # Just chill and wait for callbacks to work their magic
         time.sleep(0.1)
 
 except KeyboardInterrupt:
