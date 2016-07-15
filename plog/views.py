@@ -95,6 +95,10 @@ def pv():
 def ui():
     pass
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    return render_template("register.html")
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
