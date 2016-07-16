@@ -1,0 +1,23 @@
+{% extends "bootstrap/base.html" %}
+{% block title %} Plog {% endblock %}
+
+{% block styles %}
+{{ super() }}
+    <link href="{{ url_for('.static', filename='css/bootstrap-custom.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block navbar %}
+    <div class="navbar navbar-default">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">
+                <img class="brand-img" alt="Brand" src="/static/img/logo.png">
+
+            </a>
+            <p class="navbar-text"><a class="brand-link" href="/"> Plogger </a></p>
+        </div>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/register/">Register</a></li>
+        </ul>
+    </div>
+{% endblock %}
