@@ -56,6 +56,7 @@
 {% block scripts %}
     {{ super() }}
     <script type="application/javascript">
+
     $(".btn-update").click(function(){
         $.post("/ui/",
                 {
@@ -65,5 +66,19 @@
             $('#access_id').val(data);
         });
     });
+    {# run on a 5 second timer() #}{#
+    var run_update = function(){
+        $.post("/ui/",
+                {
+                   rfid: 'true'
+                },
+        function(data,status){
+            $('#access_id').val(data);
+        });
+    };  #}
+
+    var interval = 5000;
+
+    setInterval(run_update, interval);
     </script>
 {% endblock %}

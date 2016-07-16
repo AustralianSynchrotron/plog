@@ -7,7 +7,7 @@ import ldap
 
 from plog import app
 from plog.database import db
-from plog.models import PssLogData
+from plog.models import PssLogData,registeredUsers
 from plog.config import ldap_server,ldap_dn,ldap_sx,ldap_user,ldap_passw
 
 import requests
@@ -125,6 +125,9 @@ def register():
         print(user_name, access_id)
 
         # do some processing on the data...
+        tmp = registeredUsers(card_id=access_id,user_name=user_name)
+        db.session.add(tmp)
+        db.session.commit()
 
         return redirect(url_for('register'))
 
