@@ -21,8 +21,9 @@
                     <div class="form-group">
                         <label for="user_name">User Name:</label>
                         <select class="selectpicker" id="user_name" data-width="100%" title="Select a user name...">
-                            <option value="Cameron Rodda">Cameron Rodda</option>
-                            <option value="Rod King">Rod King</option>
+                            {% for name in ldap %}
+                            <option value="{{ name }}">{{ name }}</option>
+                            {%  endfor %}
                         </select>
                     </div>
                 </div>

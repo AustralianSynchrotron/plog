@@ -105,19 +105,27 @@ def ui():
 
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
-
+    user_name = []
     try:
         connect.simple_bind_s(ldap_user + ldap_sx, ldap_passw)
 
         result = connect.search_s("OU=Staff,"+ldap_dn, ldap.SCOPE_SUBTREE,'(&(objectclass=user)(sAMAccountName=*))',['displayName'])
 
-        connect.unbind()
+        connect.unbind_s()
+
     except ldap.LDAPError, e:
         print('An error occured, unable to bind: %s' % e)
+        connect.unbind_s()
         return render_template("register.html",ldap=None)
 
-    print(result)
-    return render_template("register.html",ldap=result)
+    # create a friendly list
+    for j in range(len(result)):
+        user_name.append( result[j][1]['displayName'][0] )
+        #print(result[j][1]['displayName'][0])
+
+
+    #print(user_name)
+    return render_template("register.html",ldap=sorted(user_name))
 
 @app.errorhandler(404)
 def page_not_found(e):
