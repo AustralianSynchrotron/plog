@@ -124,6 +124,14 @@ def register():
 
         print(user_name, access_id)
 
+        # check if the card_id is already assigned then update as required
+        check = registeredUsers.query.filter_by(card_id=access_id).first()
+        if check:
+            print("Card ID already assigned to a User in the database, Updating...")
+            check.user_name = user_name
+            db.session.commit()
+            return redirect(url_for('register'))
+
         # do some processing on the data...
         tmp = registeredUsers(card_id=access_id,user_name=user_name)
         db.session.add(tmp)
