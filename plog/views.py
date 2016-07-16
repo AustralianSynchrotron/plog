@@ -42,7 +42,7 @@ def find_cluster_num(timestamp):
 def plog():
     return render_template("main.html")
 
-@app.route('/rfid',methods=['POST'])
+@app.route('/rfid/',methods=['POST'])
 def rfid():
     # get the posted data
     timestamp = request.form['timestamp']
@@ -66,7 +66,7 @@ def rfid():
 
     return cardID
 
-@app.route('/pv', methods=['POST'])
+@app.route('/pv/', methods=['POST'])
 def pv():
     timestamp = request.form['timestamp']
     pv = request.form['pv']
@@ -91,11 +91,11 @@ def pv():
 
     return pv
 
-@app.route('/ui', methods=['POST'])
+@app.route('/ui/', methods=['POST'])
 def ui():
     pass
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/register/', methods=['GET', 'POST'])
 def register():
     return render_template("register.html")
 

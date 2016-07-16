@@ -26,7 +26,7 @@ def onChange(pvname=None, value=None, char_value=None, timestamp=None, **kw):
     #send data to server
     try:
         if not INIT:
-            r = requests.post(PV_SERVER + "/pv", data={'timestamp': fnow, 'pv': pvname, 'pv_val': char_value, 'source': DEVICE})
+            r = requests.post(PV_SERVER + "/pv/", data={'timestamp': fnow, 'pv': pvname, 'pv_val': char_value, 'source': DEVICE})
             print("%s> %s %s" % (fnow, r.status_code, r.reason))
     except requests.exceptions.RequestException as e:
         now = datetime.datetime.now()

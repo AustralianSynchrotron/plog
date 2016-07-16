@@ -76,7 +76,7 @@ try:
                 if res_fac == None:
                     continue
                 try:
-                    r = requests.post( RFID_SERVER + "/rfid", data={'timestamp':fnow, 'cardID': fetch, 'source': DEVICE})
+                    r = requests.post( RFID_SERVER + "/rfid/", data={'timestamp':fnow, 'cardID': fetch, 'source': DEVICE})
                     print("%s> %s %s" % (fnow, r.status_code, r.reason))
                 except requests.exceptions.RequestException as e:
                     now = datetime.datetime.now()
