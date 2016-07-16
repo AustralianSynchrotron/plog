@@ -4,6 +4,9 @@
 {% block styles %}
 {{ super() }}
     <link href="{{ url_for('.static', filename='css/bootstrap-custom.css') }}" rel="stylesheet">
+    <link href="{{ url_for('.static', filename='css/jquery-ui.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('.static', filename='css/jquery-ui.theme.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('.static', filename='css/jquery-ui.structure.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block navbar %}
@@ -21,3 +24,9 @@
         </ul>
     </div>
 {% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('.static', filename='js/jquery-3.1.0.min.js') }}"></script>
+    <script src="{{ url_for('.static', filename='js/jquery-ui.min.js') }}"></script>
+    {{ super() }}
+{%  endblock %}
