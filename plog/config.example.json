@@ -4,10 +4,16 @@
     "password":       "",
     "database":       "",
     "session_key":    "",
-    "ldap_server":    "",
-    "ldap_sx":        "",
-    "ldap_dn":        "",
-    "facility_code":  "",
-    "rfid_host":      "",
-    "rfid_port":      ""
+    "ldap":           {
+        "ldap_server":    "",
+        "ldap_sx":        "",
+        "ldap_dn":        "",
+        "ldap_user":      "",
+        "ldap_passw":     ""
+    },
+    "rfid":           {
+        "facility_code":  "",
+        "rfid_host":      "",
+        "rfid_port":      ""
+    }
 }
