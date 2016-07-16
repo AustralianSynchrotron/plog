@@ -3,15 +3,23 @@ from flask import render_template,session,redirect,url_for,request,current_app,m
 from sqlalchemy.sql import update,select
 from sqlalchemy.sql import extract,and_,or_
 
+import ldap
+
 from plog import app
 from plog.database import db
 from plog.models import PssLogData
+from plog.config import ldap_server,ldap_dn,ldap_sx,ldap_user,ldap_passw
 
 import requests
 from datetime import datetime,timedelta
 
 date_format = "%Y-%m-%d %H:%M:%S"
 DEBUG = False
+
+#initialise ldap server
+connect = ldap.initialize(ldap_server)
+connect.protocol_version = ldap.VERSION3
+connect.set_option(ldap.OPT_REFERRALS, 0)
 
 def find_cluster_num(timestamp):
     delta_t = timedelta(minutes=20)
@@ -97,7 +105,19 @@ def ui():
 
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
-    return render_template("register.html")
+
+    try:
+        connect.simple_bind_s(ldap_user + ldap_sx, ldap_passw)
+
+        result = connect.search_s("OU=Staff,"+ldap_dn, ldap.SCOPE_SUBTREE,'(&(objectclass=user)(sAMAccountName=*))',['displayName'])
+
+        connect.unbind()
+    except ldap.LDAPError, e:
+        print('An error occured, unable to bind: %s' % e)
+        return render_template("register.html",ldap=None)
+
+    print(result)
+    return render_template("register.html",ldap=result)
 
 @app.errorhandler(404)
 def page_not_found(e):

@@ -6,9 +6,15 @@ json_data = open('plog/config.json')
 data = json.load(json_data)
 json_data.close()
 
-facility_code = int(data['facility_code'])
-rfid_host = data['rfid_host']
-rfid_port = data['rfid_port']
+ldap_server = data['ldap']['ldap_server']
+ldap_sx = data['ldap']['ldap_sx']
+ldap_dn = data['ldap']['ldap_dn']
+ldap_user = data['ldap']['ldap_user']
+ldap_passw = data['ldap']['ldap_passw']
+
+facility_code = int(data['rfid']['facility_code'])
+rfid_host = data['rfid']['rfid_host']
+rfid_port = data['rfid']['rfid_port']
 
 username = data['dbuser']
 password = data['password']
