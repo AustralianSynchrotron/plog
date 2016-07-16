@@ -1,8 +1,8 @@
-from flask import render_template,session,redirect,url_for,request,current_app,make_response
+from flask import render_template,session,redirect,url_for,request,current_app,make_response,flash
 
 from sqlalchemy.sql import update,select
 from sqlalchemy.sql import extract,and_,or_
-
+from wtforms import Form,StringField,SelectField,SubmitField,validators
 import ldap
 
 from plog import app
@@ -15,11 +15,6 @@ from datetime import datetime,timedelta
 
 date_format = "%Y-%m-%d %H:%M:%S"
 DEBUG = False
-
-#initialise ldap server
-connect = ldap.initialize(ldap_server)
-connect.protocol_version = ldap.VERSION3
-connect.set_option(ldap.OPT_REFERRALS, 0)
 
 def find_cluster_num(timestamp):
     delta_t = timedelta(minutes=20)
@@ -101,31 +96,66 @@ def pv():
 
 @app.route('/ui/', methods=['POST'])
 def ui():
-    pass
+    if 'rfid' in request.form:
+        # get the latest card data from db...
+        last_id = PssLogData.query.order_by(PssLogData.date.desc(), PssLogData.time.desc()).first()
+        return last_id.data
+
+    return 'true'
 
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
-    user_name = []
-    try:
-        connect.simple_bind_s(ldap_user + ldap_sx, ldap_passw)
+    error = None
+    if request.method == 'POST':
+        # do some form validation
+        if 'user_name' in request.form:
+            user_name = request.form['user_name'].strip()
+        else:
+            flash('No User has been selected', 'error')
+            error = 'No User has been selected'
+            return redirect(url_for('register'))
 
-        result = connect.search_s("OU=Staff,"+ldap_dn, ldap.SCOPE_SUBTREE,'(&(objectclass=user)(sAMAccountName=*))',['displayName'])
+        if 'access_id' in request.form:
+            access_id = request.form['access_id'].strip()
+        else:
+            flash('No Card ID has been selected', 'error')
+            error = 'No Card ID has been selected'
+            return redirect(url_for('register'))
 
-        connect.unbind_s()
+        print(user_name, access_id)
 
-    except ldap.LDAPError, e:
-        print('An error occured, unable to bind: %s' % e)
-        connect.unbind_s()
-        return render_template("register.html",ldap=None)
+        # do some processing on the data...
 
-    # create a friendly list
-    for j in range(len(result)):
-        user_name.append( result[j][1]['displayName'][0] )
-        #print(result[j][1]['displayName'][0])
+        return redirect(url_for('register'))
+
+    else:
+        # initialise ldap server each time (seems to prevent timeout errors)
+        connect = ldap.initialize(ldap_server)
+        connect.protocol_version = ldap.VERSION3
+        connect.set_option(ldap.OPT_REFERRALS, 0)
+
+        user_name = []
+
+        try:
+            connect.simple_bind_s(ldap_user + ldap_sx, ldap_passw)
+
+            result = connect.search_s(ldap_dn, ldap.SCOPE_SUBTREE,'(&(objectclass=user)(sAMAccountName=*))',['displayName'])
+
+            connect.unbind_s()
+
+        except ldap.LDAPError, e:
+            print('An error occured, unable to bind: %s' % e)
+            connect.unbind_s()
+            return render_template("register.html",ldap=None)
+
+        # create a friendly list
+        for j in range(len(result)):
+            user_name.append( result[j][1]['displayName'][0] )
+            #print(result[j][1]['displayName'][0])
 
 
-    #print(user_name)
-    return render_template("register.html",ldap=sorted(user_name))
+        #print(user_name)
+        return render_template("register.html",ldap=sorted(user_name))
 
 @app.errorhandler(404)
 def page_not_found(e):
