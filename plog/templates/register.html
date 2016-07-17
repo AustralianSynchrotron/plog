@@ -23,9 +23,11 @@
             </div>
             <div class="row">
                 <div class="col-md-2 col-md-offset-5 text-center">
-                    <div class="form-group">
+                    <div class="form-group has-feedback">
                         <label for="access_id">Access Card ID:</label>
                         <input type="text" class="form-control" id="access_id" name="access_id">
+                        <span class="label label-info form-control-feedback form-control-feedback-facility" id="facility_id"></span>
+                        <span class="label label-primary form-control-feedback form-control-feedback-card" id="card_id"></span>
                     </div>
                 </div>
             </div>
@@ -63,7 +65,11 @@
                    rfid: 'true'
                 },
         function(data,status){
-            $('#access_id').val(data);
+            //console.log(data.result[0],data.result[1],data.result[2]);
+            $('#access_id').val(data.result[0]);
+            $('.label#facility_id').text(data.result[1]);
+            $('.label#card_id').text(data.result[2]);
+            $('#show_decode').removeClass('hidden')
         });
     });
     {# run on a 5 second timer() #}{#
@@ -75,10 +81,10 @@
         function(data,status){
             $('#access_id').val(data);
         });
-    };  #}
+    };
 
     var interval = 5000;
 
-    setInterval(run_update, interval);
+    setInterval(run_update, interval);#}
     </script>
 {% endblock %}

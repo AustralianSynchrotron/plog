@@ -1,4 +1,4 @@
-from flask import render_template,session,redirect,url_for,request,current_app,make_response,flash
+from flask import render_template,session,redirect,url_for,request,current_app,make_response,flash,jsonify
 
 from sqlalchemy.sql import update,select
 from sqlalchemy.sql import extract,and_,or_
@@ -97,9 +97,19 @@ def pv():
 @app.route('/ui/', methods=['POST'])
 def ui():
     if 'rfid' in request.form:
+
         # get the latest card data from db...
         last_id = PssLogData.query.order_by(PssLogData.date.desc(), PssLogData.time.desc()).first()
-        return last_id.data
+        bin_rep = bin(int(str(last_id.data), base=16))[2:].zfill(28)
+        bin_strip = bin_rep[3:-1]  # strip off the parity bits
+
+        # extract the facility and code id's
+        facility = int(bin_strip[:8], 2)
+        card_id = int(bin_strip[9:], 2)
+
+        var = [str(last_id.data).strip(),facility,card_id]
+
+        return jsonify(result=var)
 
     return 'true'
 

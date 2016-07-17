@@ -34,6 +34,7 @@ def onChange(pvname=None, value=None, char_value=None, timestamp=None, **kw):
         print("%s> Error: {}".format(e) % fnow)
 
 
+master_shutter = epics.PV("PP00:MASTER_SHUTTER_ENABLE_STATUS", callback=onChange) # Master Shutter status
 br_state = epics.PV("PP00:LINAC_BR_ACCESS_MODE_STATUS",callback=onChange) # BR Status
 sr_state = epics.PV("PP00:SR_ACCESS_MODE_STATUS",callback=onChange) # SR Status
 sr_sw_key = epics.PV("PP00:SR_SW_LAB_KEY_STATUS",callback=onChange) # SR SW Labrynth Door Keys State

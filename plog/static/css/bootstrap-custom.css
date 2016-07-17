@@ -16,3 +16,16 @@ input#access_id {
     text-align: center;
 }
 
+
+.form-control-feedback-facility {
+    position: absolute;
+    left: 0;
+    line-height: 3;
+    border-radius: 0.5em;
+}
+
+
+.form-control-feedback-card {
+    line-height: 3;
+    border-radius: 0.5em;
+}
