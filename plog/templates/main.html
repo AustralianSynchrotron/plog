@@ -5,68 +5,65 @@
 
 {% block content %}
     <h1>Plogger!</h1>
+
     <div id="redips-drag">
         <div class="row">
             <div class="col-md-2 col-md-offset-3 text-center">
                 <table id="users_table">
-
+                    <colgroup>
+                        <col width="150"/>
+                    </colgroup>
 
                     <tbody>
                     <tr>
                         <td class="redips-mark">Users</td>
                     </tr>
                     <tr>
-                        <td><div class="redips-drag"><small>2016/07/18 03:17</small><br>Cameron Rodda</div>
-                        <div class="redips-drag">two</div>
-                        <div class="redips-drag">two</div>
-                        <div class="redips-drag">two</div></td>
-                    </tr>
-                    <tr>
-                        <td><div class="redips-drag">two</div></td>
-                    </tr>
-                    <tr>
-                        <td><div class="redips-drag">three</div></td>
-                    </tr>
-                    <tr>
-                        <td><div class="redips-drag">four</div></td>
-                    </tr>
-                    <tr>
-                        <td><div class="redips-drag">five</div></td>
+                        <td class="text-center">
+                            <div class="redips-drag"><small>2016/07/18 03:17</small><br>Cameron Rodda</div>
+                            <div class="redips-drag">two</div>
+                            <div class="redips-drag">two</div>
+                            <div class="redips-drag">two</div>
+                            <div class="redips-drag">two</div>
+                            <div class="redips-drag">three</div>
+                            <div class="redips-drag">four</div>
+                            <div class="redips-drag">five</div>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-2 col-md-offset-1 text-center">
+            <div class="col-md-2 col-md-offset-0 text-center">
 
                 <table id="events_table">
-
+                    <colgroup>
+                        <col width="150"/>
+                    </colgroup>
                     <tbody>
                     <tr>
                         <td class="redips-mark">Events</td>
                     </tr>
                     <tr>
-                        <td><div class="redips-drag">six</div></td>
-                    </tr>
-                    <tr>
-                        <td><div class="redips-drag">seven</div></td>
-                    </tr>
-                    <tr>
-                        <td><div class="redips-drag">eight</div></td>
-                    </tr>
-                    <tr>
-                        <td><div class="redips-drag">nine</div></td>
-                    </tr>
-                    <tr>
-                        <td><div class="redips-drag">ten</div></td>
+                        <td>
+                            <div class="redips-drag">six</div>
+                            <div class="redips-drag">seven</div>
+                            <div class="redips-drag">eight</div>
+                            <div class="redips-drag">nine</div>
+                            <div class="redips-drag">ten</div>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
 
             </div>
         </div>
-        <div class="row">
+
+        <div class="row top-buffer">
             <div class="col-md-1 col-md-offset-1 text-center">
                 <table id="authorised">
+                    <colgroup>
+                        <col width="150">
+                    </colgroup>
                     <tbody>
                     <tr>
                         <td class="redips-mark">Authorised By:</td>
@@ -80,7 +77,10 @@
         </div>
         <div class="row">
             <div class="col-md-12 col-md-offset-1 text-center">
-                <table id="pss_log">
+                <table id="pss_log1">
+                    <colgroup>
+                        <col width="150"><col width="150"><col width="150"><col width="150"><col width="150"><col width="150"><col width="150"><col width="150">
+                    </colgroup>
                     <tbody>
                     <tr>
                         <td class="redips-mark">date</td>
@@ -90,6 +90,31 @@
                         <td class="redips-mark">BR</td>
                         <td class="redips-mark">Person</td>
                         <td class="redips-mark">Reason</td>
+                        <td class="redips-mark">Comments</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-md-offset-1 text-center">
+                <table id="pss_log2">
+                    <colgroup>
+                        <col width="100"><col width="100"><col width="100"><col width="100"><col width="100"><col width="100">
+                        <col width="100"><col width="100"><col width="100"><col width="100"><col width="100"><col width="100">
+                    </colgroup>
+                    <tbody>
+                    <tr>
                         <td class="redips-mark">Keys Out</td>
                         <td class="redips-mark">Linac In</td>
                         <td class="redips-mark">Linac Out</td>
@@ -116,13 +141,6 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                     </tr>
                     </tbody>
                 </table>
@@ -131,6 +149,9 @@
         <div class="row">
             <div class="col-md-1 col-md-offset-1 text-center">
                 <table id="signoff">
+                    <colgroup>
+                        <col width="150">
+                    </colgroup>
                     <tbody>
                     <tr>
                         <td class="redips-mark">Sign-Off By:</td>
@@ -143,5 +164,6 @@
             </div>
         </div>
     </div> {# end redips-drag #}
+
 
 {% endblock %}

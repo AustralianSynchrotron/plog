@@ -36,3 +36,8 @@ input#access_id {
     right: 2px;
     padding: 0;
 }
+
+
+.top-buffer {
+    margin-top: 50px;
+}

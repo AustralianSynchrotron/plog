@@ -26,10 +26,10 @@ body {
 	margin: 2px auto;
 	z-index: 10;
 	background-color: #f0f0f0;
-	text-align: left;
+	/*text-align: left;*/
 	padding: 5px;
 	font-size: 12px;
-	width: 100px;
+	width: 150px;
 	/* round corners for FF, Chrome, Safari (except IE) */
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
