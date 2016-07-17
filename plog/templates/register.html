@@ -36,9 +36,9 @@
                     <div class="form-group">
                         <label for="user_name">User Name:</label>
                         <select class="selectpicker" id="user_name" name="user_name" data-width="100%" title="Select a user name...">
-                            {% for name in ldap %}
+                            {% for name in ldap -%}
                             <option value="{{ name }}">{{ name }}</option>
-                            {%  endfor %}
+                            {%-  endfor %}
                         </select>
                     </div>
                 </div>
