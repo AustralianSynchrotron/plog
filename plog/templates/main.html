@@ -1,5 +1,147 @@
 {% extends "custom.html" %}
 
+{% block body_attribs %} onload="REDIPS.drag.init()"
+{%- endblock %}
+
 {% block content %}
-<h1>Plogger!</h1>
+    <h1>Plogger!</h1>
+    <div id="redips-drag">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-3 text-center">
+                <table id="users_table">
+
+
+                    <tbody>
+                    <tr>
+                        <td class="redips-mark">Users</td>
+                    </tr>
+                    <tr>
+                        <td><div class="redips-drag"><small>2016/07/18 03:17</small><br>Cameron Rodda</div>
+                        <div class="redips-drag">two</div>
+                        <div class="redips-drag">two</div>
+                        <div class="redips-drag">two</div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="redips-drag">two</div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="redips-drag">three</div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="redips-drag">four</div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="redips-drag">five</div></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-2 col-md-offset-1 text-center">
+
+                <table id="events_table">
+
+                    <tbody>
+                    <tr>
+                        <td class="redips-mark">Events</td>
+                    </tr>
+                    <tr>
+                        <td><div class="redips-drag">six</div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="redips-drag">seven</div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="redips-drag">eight</div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="redips-drag">nine</div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="redips-drag">ten</div></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 col-md-offset-1 text-center">
+                <table id="authorised">
+                    <tbody>
+                    <tr>
+                        <td class="redips-mark">Authorised By:</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-md-offset-1 text-center">
+                <table id="pss_log">
+                    <tbody>
+                    <tr>
+                        <td class="redips-mark">date</td>
+                        <td class="redips-mark">time</td>
+                        <td class="redips-mark">master shutter</td>
+                        <td class="redips-mark">SR</td>
+                        <td class="redips-mark">BR</td>
+                        <td class="redips-mark">Person</td>
+                        <td class="redips-mark">Reason</td>
+                        <td class="redips-mark">Keys Out</td>
+                        <td class="redips-mark">Linac In</td>
+                        <td class="redips-mark">Linac Out</td>
+                        <td class="redips-mark">Nth Booster In</td>
+                        <td class="redips-mark">Nth Booster Out</td>
+                        <td class="redips-mark">Sth Booster In</td>
+                        <td class="redips-mark">Sth Booster Out</td>
+                        <td class="redips-mark">NE Storage In</td>
+                        <td class="redips-mark">NE Storage Out</td>
+                        <td class="redips-mark">SW Storage In</td>
+                        <td class="redips-mark">SW Storage Out</td>
+                        <td class="redips-mark">Keys In</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 col-md-offset-1 text-center">
+                <table id="signoff">
+                    <tbody>
+                    <tr>
+                        <td class="redips-mark">Sign-Off By:</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> {# end redips-drag #}
+
 {% endblock %}
