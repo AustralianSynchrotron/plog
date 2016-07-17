@@ -160,18 +160,23 @@ def register():
     error = None
     if request.method == 'POST':
         # do some form validation
-        if 'user_name' in request.form:
+        # seems to always be available, just empty if nothing entered
+        if request.form['user_name']:
             user_name = request.form['user_name'].strip()
         else:
-            flash('No User has been selected', 'error')
+            flash('No User has been selected',"warning")
             error = 'No User has been selected'
-            return redirect(url_for('register'))
 
-        if 'access_id' in request.form:
+
+        # seems to always be available, just empty if nothing entered
+        if request.form['access_id']:
             access_id = request.form['access_id'].strip()
         else:
-            flash('No Card ID has been selected', 'error')
+            flash('No Card ID has been selected',"warning")
             error = 'No Card ID has been selected'
+
+
+        if error:
             return redirect(url_for('register'))
 
         print(user_name, access_id)
@@ -188,6 +193,8 @@ def register():
         tmp = registeredUsers(card_id=access_id,user_name=user_name)
         db.session.add(tmp)
         db.session.commit()
+
+        flash("Registered User data has been saved","success")
 
         return redirect(url_for('register'))
 
@@ -208,6 +215,7 @@ def register():
 
         except ldap.LDAPError, e:
             print('An error occured, unable to bind: %s' % e)
+            flash('An error occured, unable to bind: %s' % e,"danger")
             connect.unbind_s()
             return render_template("register.html",ldap=None)
 
