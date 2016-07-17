@@ -48,6 +48,7 @@
                     <input type="hidden" name="register" value="true">
                     <button type="submit" class="btn btn-primary">Save</button>
                     <button type="button" class="btn btn-primary btn-update">Refresh</button>
+                    <button type="button" class="btn btn-warning btn-check">Check ID</button>
                 </div>
             </div>
         </form>
@@ -62,14 +63,29 @@
     $(".btn-update").click(function(){
         $.post("/ui/",
                 {
-                   rfid: 'true'
+                    rfid: 'true'
                 },
         function(data,status){
             //console.log(data.result[0],data.result[1],data.result[2]);
             $('#access_id').val(data.result[0]);
             $('.label#facility_id').text(data.result[1]);
             $('.label#card_id').text(data.result[2]);
-            $('#show_decode').removeClass('hidden')
+            $('.selectpicker').selectpicker('val',data.result[3]);
+        });
+    });
+
+    $(".btn-check").click(function(){
+        $.post("/ui/",
+                {
+                    check: 'true',
+                    card_id: $("#access_id").val()
+                },
+        function(data,status){
+            //console.log(data.result[0],data.result[1],data.result[2],data.result[3]);
+            $('#access_id').val(data.result[0]);
+            $('.label#facility_id').text(data.result[1]);
+            $('.label#card_id').text(data.result[2]);
+            $('.selectpicker').selectpicker('val',data.result[3]);
         });
     });
     {# run on a 5 second timer() #}{#

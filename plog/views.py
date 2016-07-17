@@ -41,6 +41,19 @@ def find_cluster_num(timestamp):
                 print("event_id: " + str(cluster_search.event_id + 1))
             return cluster_search.event_id + 1
 
+def decode_card_id(cardID):
+    # convert to binary and pad with zeros
+    bin_rep = bin(int(str(cardID), base=16))[2:].zfill(28)
+    bin_strip = bin_rep[3:-1]  # strip off the parity bits
+
+    # extract the facility and code id's
+    facility = int(bin_strip[:8], 2)
+    card_id = int(bin_strip[9:], 2)
+
+    return facility,card_id
+
+
+
 @app.route('/')
 def plog():
     return render_template("main.html")
@@ -49,7 +62,7 @@ def plog():
 def rfid():
     # get the posted data
     timestamp = request.form['timestamp']
-    cardID = request.form['cardID']
+    cardID = request.form['cardID'].strip() # remove trailing white space (\r)
     device = request.form['source']
     if DEBUG:
         print(timestamp,cardID,device)
@@ -100,14 +113,43 @@ def ui():
 
         # get the latest card data from db...
         last_id = PssLogData.query.order_by(PssLogData.date.desc(), PssLogData.time.desc()).first()
-        bin_rep = bin(int(str(last_id.data), base=16))[2:].zfill(28)
-        bin_strip = bin_rep[3:-1]  # strip off the parity bits
 
-        # extract the facility and code id's
-        facility = int(bin_strip[:8], 2)
-        card_id = int(bin_strip[9:], 2)
+        # check if user is already assigned a card id
+        current_id = registeredUsers.query.filter_by(card_id=last_id.data).first()
 
-        var = [str(last_id.data).strip(),facility,card_id]
+        facility,card_id = decode_card_id(last_id.data)
+
+        # return user_name if found in db
+        if current_id:
+            var = [str(last_id.data).strip(), facility, card_id, current_id.user_name]
+        else:
+            # just return the decoded values otherwise
+            var = [str(last_id.data).strip(), facility, card_id, ""]
+
+        #var = [str(last_id.data).strip(),facility,card_id]
+
+        return jsonify(result=var)
+
+    if 'check' in request.form:
+        # print(request.form)
+        if request.form['card_id']:
+            this_card_id = request.form['card_id']
+        else:
+            # return empty strings if no card_id entered into form
+            var = ["","","",""]
+            return jsonify(result=var)
+
+        # get the card data from db...
+        current_id = registeredUsers.query.filter_by(card_id=this_card_id).first()
+
+        facility,card_id = decode_card_id(this_card_id)
+
+        # return user_name if found in db
+        if current_id:
+            var = [this_card_id, facility, card_id, current_id.user_name]
+        else:
+            # just return the decoded values otherwise
+            var = [this_card_id, facility, card_id, ""]
 
         return jsonify(result=var)
 
