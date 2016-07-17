@@ -19,13 +19,20 @@ input#access_id {
 
 .form-control-feedback-facility {
     position: absolute;
-    left: 0;
+    left: 2px;
+    top: 27px !important;
+    height: 30px;
     line-height: 3;
     border-radius: 0.5em;
+    padding: 0;
 }
 
 
 .form-control-feedback-card {
     line-height: 3;
     border-radius: 0.5em;
+    height: 30px;
+    top: 27px !important;
+    right: 2px;
+    padding: 0;
 }
