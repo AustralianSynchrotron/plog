@@ -67,3 +67,9 @@ div#redips-drag td {
 	color: white;
 	background-color: SteelBlue;
 }
+
+.redips-mark-mod {
+	width: 100px;
+	padding-left: 25px !important;
+	padding-right: 25px !important;
+}
