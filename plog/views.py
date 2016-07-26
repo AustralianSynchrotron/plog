@@ -58,8 +58,9 @@ def decode_card_id(cardID):
 @app.route('/')
 def plog():
     # get the latest card data from db...
-    last_event_id = PssLogData.query.with_entities(func.max(PssLogData.event_id).label('max_event_id')).first()
-    last_events = PssLogData.query.filter_by(event_id=last_event_id.max_event_id).all()
+    # last_event_id = PssLogData.query.with_entities(func.max(PssLogData.event_id).label('max_event_id')).first()
+    # last_events = PssLogData.query.filter_by(event_id=last_event_id.max_event_id).all()
+    last_events = PssLogData.query.filter_by(event_id=None).all()
 
     # sort last events into users and remaining events
     # user events have a len(data) == 8 and pv_name == None
@@ -68,7 +69,12 @@ def plog():
     for event in last_events:
         if ((len(event.data) == 8) and (event.pv_name == None)):
             # fetch the username based on the card id
-            event.user_name = registeredUsers.query.filter_by(card_id=event.data).first().user_name
+            try:
+                event.user_name = registeredUsers.query.filter_by(card_id=event.data).first().user_name
+            except:
+            # some error handling if user not in database
+                event.user_name = "ID Not <a href='/register/"+ event.data +"'>Registered</a>"
+
             user_events.append(event)
         else:
             #print("PSS Event found")
