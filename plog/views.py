@@ -1,7 +1,7 @@
 from flask import render_template,session,redirect,url_for,request,current_app,make_response,flash,jsonify
 
 from sqlalchemy.sql import update,select
-from sqlalchemy.sql import extract,and_,or_
+from sqlalchemy.sql import extract,and_,or_,func
 from wtforms import Form,StringField,SelectField,SubmitField,validators
 import ldap
 
@@ -15,6 +15,7 @@ from datetime import datetime,timedelta
 
 date_format = "%Y-%m-%d %H:%M:%S"
 DEBUG = False
+
 
 def find_cluster_num(timestamp):
     delta_t = timedelta(minutes=20)
@@ -56,7 +57,25 @@ def decode_card_id(cardID):
 
 @app.route('/')
 def plog():
-    return render_template("main.html")
+    # get the latest card data from db...
+    last_event_id = PssLogData.query.with_entities(func.max(PssLogData.event_id).label('max_event_id')).first()
+    last_events = PssLogData.query.filter_by(event_id=last_event_id.max_event_id).all()
+
+    # sort last events into users and remaining events
+    # user events have a len(data) == 8 and pv_name == None
+    user_events = []
+    pss_events = []
+    for event in last_events:
+        if ((len(event.data) == 8) and (event.pv_name == None)):
+            # fetch the username based on the card id
+            event.user_name = registeredUsers.query.filter_by(card_id=event.data).first().user_name
+            user_events.append(event)
+        else:
+            #print("PSS Event found")
+            pss_events.append(event)
+
+
+    return render_template("main.html",e_user=user_events,e_pss=pss_events)
 
 @app.route('/rfid/',methods=['POST'])
 def rfid():

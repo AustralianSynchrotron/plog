@@ -17,30 +17,11 @@
                     <tbody>
                     <tr>
                         <td class="redips-mark redips-mark-mod">Users</td>
+                        {% for user in e_user %}
                         <td class="text-center">
-                            <div class="redips-drag"><small>2016/07/18 03:17</small><br>Cameron Rodda</div>
+                            <div class="redips-drag" id="{{ user.id }}"><small>{{ user.date }} {{ user.time }}</small><br>{{ user.user_name }}</div>
                         </td>
-                        <td>
-                            <div class="redips-drag"><small>2016/07/18 03:17</small><br>Rod King</div>
-                        </td>
-                        <td>
-                            <div class="redips-drag"><small>2016/07/18 03:17</small><br>Joel Trewella</div>
-                        </td>
-                        <td>
-                            <div class="redips-drag"><small>2016/07/18 03:17</small><br>Mike Lafky</div>
-                        </td>
-                        <td>
-                            <div class="redips-drag">two</div>
-                        </td>
-                        <td>
-                            <div class="redips-drag">three</div>
-                        </td>
-                        <td>
-                            <div class="redips-drag">four</div>
-                        </td>
-                        <td>
-                            <div class="redips-drag">five</div>
-                        </td>
+                        {% endfor %}
                     </tr>
                     </tbody>
                 </table>
@@ -56,21 +37,17 @@
                     <tbody>
                     <tr>
                         <td class="redips-mark redips-mark-mod">Events</td>
-                        <td>
-                            <div class="redips-drag">six</div>
+                    {% if e_pss %}
+                        {% for event in e_pss %}
+                        <td class="text-center">
+                            <div class="redips-drag" id="{{ event.id }}"><small>{{ event.date }} {{ event.time }}</small><br>{{ event.data }}</div>
                         </td>
-                        <td>
-                            <div class="redips-drag">seven</div>
+                        {% endfor %}
+                    {% else %}
+                        <td class="text-center">
+                            <div id="-1">No Events Registered</div>
                         </td>
-                        <td>
-                            <div class="redips-drag">eight</div>
-                        </td>
-                        <td>
-                            <div class="redips-drag">nine</div>
-                        </td>
-                        <td>
-                            <div class="redips-drag">ten</div>
-                        </td>
+                    {% endif %}
                     </tr>
                     </tbody>
                 </table>
