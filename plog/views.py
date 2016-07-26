@@ -121,10 +121,13 @@ def pv():
     mod_date = timestamp.split(" ")[0]
 
     # determine event_id
-    eid = find_cluster_num(timestamp)
+    # eid = find_cluster_num(timestamp)
+    eid = None
+
+    shorty = pv.split(":")[1].rsplit("_",1)[0]
 
     # create the database entry and commit to file
-    tmp = PssLogData(date=mod_date, time=mod_time, event_id=eid, data=pv_val, pv_name=pv, device=device)
+    tmp = PssLogData(date=mod_date, time=mod_time, event_id=eid, data=pv_val, pv_name=pv, pv_name_short=shorty,device=device)
     db.session.add(tmp)
     db.session.commit()
 

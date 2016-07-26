@@ -9,6 +9,7 @@ class PssLogData(db.Model):
     event_id = db.Column(db.Integer)
     data = db.Column(db.String)
     pv_name = db.Column(db.String(128))
+    pv_name_short = db.Column(db.String(64))
     device = db.Column(db.String(8))
     comments = db.Column(db.String)
 
