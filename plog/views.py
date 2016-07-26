@@ -181,7 +181,8 @@ def ui():
     return 'true'
 
 @app.route('/register/', methods=['GET', 'POST'])
-def register():
+@app.route('/register/<string:new_card_id>')
+def register(new_card_id=""):
     error = None
     if request.method == 'POST':
         # do some form validation
@@ -249,9 +250,11 @@ def register():
             user_name.append( result[j][1]['displayName'][0] )
             #print(result[j][1]['displayName'][0])
 
+        if new_card_id:
+            return render_template("register.html",ldap=sorted(user_name),card_id=new_card_id)
 
         #print(user_name)
-        return render_template("register.html",ldap=sorted(user_name))
+        return render_template("register.html",ldap=sorted(user_name),card_id="")
 
 @app.errorhandler(404)
 def page_not_found(e):
