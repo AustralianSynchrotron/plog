@@ -62,6 +62,23 @@ div#redips-drag td {
 	padding: 2px;
 }
 
+#redips-drag #scroll-events,#scroll-users{
+    height: 400px;
+    width: 331px;
+    padding-left: 0;
+}
+
+/* make div scrollable */
+#redips-drag #scroll-users,#scroll-events {
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+#redips-drag #scroll-events,#scroll-users {
+    border: 2px solid SlateGray;
+}
+
 /* message cell (marked as forbidden) */
 .redips-mark {
 	color: white;
@@ -72,4 +89,19 @@ div#redips-drag td {
 	width: 100px;
 	padding-left: 25px !important;
 	padding-right: 25px !important;
+}
+
+/* green objects */
+.green {
+	border: 2px solid #499B33;
+}
+
+/* blue objects */
+.blue {
+	border: 2px solid steelBlue;
+}
+
+/* red objects */
+.red {
+	border: 2px solid darkRed;
 }

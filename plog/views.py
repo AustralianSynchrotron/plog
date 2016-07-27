@@ -122,7 +122,10 @@ def pv():
 
     # determine event_id
     # eid = find_cluster_num(timestamp)
+    # set all new events to null
     eid = None
+
+    # TODO: set all null entries older than 2 weeks event_id = -1, so relevant events displayed...
 
     shorty = pv.split(":")[1].rsplit("_",1)[0]
 
