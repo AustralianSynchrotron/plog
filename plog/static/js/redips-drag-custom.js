@@ -16,15 +16,19 @@ redips.init = function () {
 	// elements could be cloned with pressed SHIFT key
 	rd.clone.keyDiv = true;
 	// define text source elements for the text-only row (element ID and class name of the last row)
-	rd.only.div.text_only = 'text_only';
-	rd.only.div.text_only = 'text_only';
-	rd.only.other = 'deny';
+	//rd.only.div.text_only = 'text_only';
+	//rd.only.div.text_only = 'text_only';
+	//rd.only.other = 'deny';
 	rd.event.cloned = function () {
 		var clonedID = rd.obj.id; //cloned id
 		if ('text_only'.localeCompare(clonedID.substr(0,9)) === 0) {
 			rd.only.div[clonedID] = 'text_only';
 		}
 	};
+	rd.event.clicked = function () {
+	    var this_id = rd.obj.id;
+        //console.log(this_id);
+    }
 };
 
 

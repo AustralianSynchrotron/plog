@@ -73,7 +73,7 @@
                 </table>
 
             </div>
-            <div id="scroll-events" class="col-md-2 col-md-offset-1 text-center redips-noautoscroll">
+            <div id="scroll-misc" class="col-md-2 col-md-offset-1 text-center redips-noautoscroll">
                 <table id="misc_table">
                     <colgroup>
                         <col width="150"/><col width="150"/>
@@ -87,7 +87,9 @@
                         <td class="text-center">
                             <div class="redips-drag green redips-only text_only" id="text_only"><input class="form-control" id="text_input" type="text" /></div>
                         </td>
-                        <td></td>
+                        <td class="text-center">
+                            <div class="redips-drag green redips-only text_only" id="text_only"><input class="form-control" id="text_input" type="text" /></div>
+                        </td>
                     </tr>
                     <tr>
                         {% for item in e_misc %}
@@ -105,7 +107,7 @@
             </div>
         </div>
 
-        <div class="row top-buffer">
+        {# <div class="row top-buffer">
             <div class="col-md-1 col-md-offset-1 text-center">
                 <table id="authorised">
                     <colgroup>
@@ -121,8 +123,8 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-        <div class="row">
+        </div>  #}
+        <div class="row top-buffer">
             <div class="col-md-12 col-md-offset-1 text-center">
                 <table id="pss_log1">
                     <colgroup>
@@ -131,26 +133,26 @@
                     </colgroup>
                     <tbody>
                     <tr>
-                        <td class="redips-mark">Date</td>
-                        <td class="redips-mark">Time</td>
+                        {# <td class="redips-mark">Date</td>
+                        <td class="redips-mark">Time</td> #}
+                        <td class="redips-mark">Authorised By:</td>
                         <td class="redips-mark">Master Shutter</td>
-                        <td class="redips-mark">Access Mode</td>
-                        <td class="redips-mark">SR</td>
-                        <td class="redips-mark">BR</td>
-                        <td class="redips-mark">Person</td>
+                        <td class="redips-mark">SR Access Mode</td>
+                        <td class="redips-mark">BR Access Mode</td>
+                        <td class="redips-mark">Persons</td>
                         <td class="redips-mark">Reason</td>
                         <td class="redips-mark">Comments</td>
                     </tr>
                     <tr>
-                        <td id="date"></td>
-                        <td id="time"></td>
+                        {# <td id="date"></td>
+                        <td id="time"></td> #}
+                        <td id="authorised"></td>
                         <td id="master_shutter"></td>
-                        <td id="access_mode"></td>
-                        <td id=""></td>
-                        <td id=""></td>
+                        <td id="sr_access_mode"></td>
+                        <td id="br_access_mode"></td>
                         <td id="person"></td>
-                        <td id="reason" class="text_only redips-only"></td>
-                        <td id="comments" class="text_only redips-only"></td>
+                        <td id="reason" class="text_only"></td>
+                        <td id="comments" class="text_only"></td>
                     </tr>
                     </tbody>
                 </table>

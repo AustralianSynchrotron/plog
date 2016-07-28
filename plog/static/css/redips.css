@@ -62,20 +62,20 @@ div#redips-drag td {
 	padding: 2px;
 }
 
-#redips-drag #scroll-events,#scroll-users{
+#redips-drag #scroll-events,#scroll-users,#scroll-misc{
     height: 400px;
     width: 331px;
     padding-left: 0;
 }
 
 /* make div scrollable */
-#redips-drag #scroll-users,#scroll-events {
+#redips-drag #scroll-users,#scroll-events,#scroll-misc {
     overflow-y: auto;
     overflow-x: hidden;
     position: relative;
 }
 
-#redips-drag #scroll-events,#scroll-users {
+#redips-drag #scroll-events,#scroll-users,#scroll-misc {
     border: 2px solid SlateGray;
 }
 
