@@ -32,6 +32,25 @@
                             {% endif %}
 
                         {% endfor %}
+                    {# now add some padding to fill the table... #}
+
+                        {% set user_length = e_user|length|int %}
+
+                        {% if user_length % 2 == 1 %}
+                            <td></td>
+                        {% endif %}
+                        {% if user_length < 14 %}
+                            {% set user_range = 14 - user_length %}
+
+                            {% for extra in range( user_range ) %}
+
+                            <td></td>
+                            {% if loop.index % 2 == 0 %}
+                                </tr>
+                                <tr>
+                            {% endif %}
+                            {% endfor %}
+                        {% endif %}
                     </tr>
                     </tbody>
                 </table>
@@ -63,6 +82,21 @@
                                 <tr>
                             {% endif %}
                         {% endfor %}
+                        {# now add some padding to fill the table... #}
+                        {% set pss_length = e_pss|length|int %}
+                        {% if pss_length % 2 == 1 %}
+                            <td></td>
+                        {% endif %}
+                        {% if pss_length < 10 %}
+                            {% for extra in range( 10 - pss_length ) %}
+                            <td></td>
+                            {% if loop.index % 2 == 0 %}
+                                </tr>
+                                <tr>
+                            {% endif %}
+                            {% endfor %}
+                        {% endif %}
+
                     {% else %}
                         <td class="text-center">
                             <div id="-1">No Events Registered</div>
@@ -101,6 +135,21 @@
                                 <tr>
                             {% endif %}
                         {% endfor %}
+                    {# now add some padding to fill the table... #}
+                        {% set misc_length = e_misc|length|int %}
+                        {% if misc_length % 2 == 1 %}
+                            <td></td>
+                        {% endif %}
+                        {% if misc_length < 12 %}
+                            {% for extra in range( 12 - misc_length ) %}
+                            <td></td>
+                            {% if loop.index % 2 == 0 %}
+                                </tr>
+                                <tr>
+                            {% endif %}
+                            {% endfor %}
+                        {% endif %}
+
                     </tr>
                     </tbody>
                 </table>
