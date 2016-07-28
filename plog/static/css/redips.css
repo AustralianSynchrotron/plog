@@ -79,6 +79,10 @@ div#redips-drag td {
     border: 2px solid SlateGray;
 }
 
+#redips-drag #text_input {
+    width: 98%;
+}
+
 /* message cell (marked as forbidden) */
 .redips-mark {
 	color: white;

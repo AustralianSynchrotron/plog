@@ -43,7 +43,7 @@
 
                 <table id="events_table">
                     <colgroup>
-                        <col width="150"/><col width="150"/><col width="150"/><col width="150"/><col width="150"/><col width="150"/>
+                        <col width="150"/><col width="150"/>
                     </colgroup>
                     <tbody>
                     <tr>
@@ -72,6 +72,36 @@
                     </tbody>
                 </table>
 
+            </div>
+            <div id="scroll-events" class="col-md-2 col-md-offset-1 text-center redips-noautoscroll">
+                <table id="misc_table">
+                    <colgroup>
+                        <col width="150"/><col width="150"/>
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <td class="redips-mark redips-mark-mod">Miscellaneous</td>
+                        <td class="redips-mark"><button type="button" class="btn btn-primary btn-refresh-events">Refresh Misc!</button></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">
+                            <div class="redips-drag green redips-only text_only" id="text_only"><input class="form-control" id="text_input" type="text" /></div>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        {% for item in e_misc %}
+                        <td class="text-center">
+                            <div class="redips-drag green" id="{{ item }}">{{ item }}</div>
+                        </td>
+                            {% if loop.index % 2 == 0 %}
+                                </tr>
+                                <tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -119,8 +149,8 @@
                         <td id=""></td>
                         <td id=""></td>
                         <td id="person"></td>
-                        <td id="reason"></td>
-                        <td id="comments"></td>
+                        <td id="reason" class="text_only redips-only"></td>
+                        <td id="comments" class="text_only redips-only"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -167,7 +197,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-1 col-md-offset-1 text-center">
+            <div class="col-md-2 col-md-offset-1 text-center">
                 <table id="signoff">
                     <colgroup>
                         <col width="150">
@@ -175,7 +205,7 @@
                     </colgroup>
                     <tbody>
                     <tr>
-                        <td class="redips-mark" style="width: 150px">Sign-Off By:</td>
+                        <td class="redips-mark">Sign-Off By:</td>
                         <td class="redips-mark"><button type="button" class="btn btn-primary btn_save_log">Save Log Data</button></td>
                     </tr>
                     <tr>

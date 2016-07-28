@@ -80,8 +80,10 @@ def plog():
             #print("PSS Event found")
             pss_events.append(event)
 
+    misc_events = ['Start User Beam','Start Machine Studies','Start Maintenance','Radiation Survey','Search and Secure',
+                   'Check/Adjust Flow Meter','Beam Dump','Scrape Beam','Exchange Bust Disc']
 
-    return render_template("main.html",e_user=user_events,e_pss=pss_events)
+    return render_template("main.html",e_user=user_events,e_pss=pss_events,e_misc=misc_events)
 
 @app.route('/rfid/',methods=['POST'])
 def rfid():
