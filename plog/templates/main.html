@@ -18,39 +18,33 @@
                     <tbody>
                     <tr>
                         <td class="redips-mark redips-mark-mod">Users</td>
-                        <td class="redips-mark"><button type="button" class="btn btn-primary btn-refresh-users">Refresh Users!</button></td>
+                        <td class="redips-mark"><button type="button" class="btn btn-primary btn-update-users">Refresh Users!</button></td>
                     </tr>
                     <tr>
-                        {% for user in e_user %}
-
+                        {%- for user in e_user -%}
                             <td class="text-center">
                                 <div class="redips-drag red" id="{{ user.id }}"><small>{{ user.date }} {{ user.time }}</small><br>{{ user.user_name|safe }}</div>
                             </td>
-                            {% if loop.index % 2 == 0 %}
+                            {%- if loop.index % 2 == 0 -%}
                                 </tr>
                                 <tr>
-                            {% endif %}
-
-                        {% endfor %}
+                            {%- endif -%}
+                        {%- endfor -%}
                     {# now add some padding to fill the table... #}
-
-                        {% set user_length = e_user|length|int %}
-
-                        {% if user_length % 2 == 1 %}
+                        {%- set user_length = e_user|length|int -%}
+                        {%- if user_length % 2 == 1 -%}
                             <td></td>
-                        {% endif %}
-                        {% if user_length < 14 %}
-                            {% set user_range = 14 - user_length %}
-
-                            {% for extra in range( user_range ) %}
-
+                        {%- endif -%}
+                        {%- if user_length < 14 -%}
+                            {%- set user_range = 14 - user_length -%}
+                            {%- for extra in range( user_range ) -%}
                             <td></td>
-                            {% if loop.index % 2 == 0 %}
+                            {%- if loop.index % 2 == 0 -%}
                                 </tr>
                                 <tr>
-                            {% endif %}
-                            {% endfor %}
-                        {% endif %}
+                            {%- endif -%}
+                            {%- endfor -%}
+                        {%- endif -%}
                     </tr>
                     </tbody>
                 </table>
