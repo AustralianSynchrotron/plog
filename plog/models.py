@@ -14,6 +14,22 @@ class PssLogData(db.Model):
     position = db.Column(db.Integer)
     comments = db.Column(db.String)
 
+    @property
+    def serialise(self):
+        """ Return object data in easily serialisable format """
+        return {
+            'id':           self.id,
+            'date':         self.date,
+            'time':         self.time,
+            'event_id':     self.event_id,
+            'data':         self.data,
+            'pv_name':      self.pv_name,
+            'pv_name_short':self.pv_name_short,
+            'device':       self.device,
+            'position':     self.position,
+            'comments':     self.comments
+        }
+
 class registeredUsers(db.Model):
     __tablename__ = 'registered_users'
 
