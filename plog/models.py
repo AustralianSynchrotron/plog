@@ -11,6 +11,7 @@ class PssLogData(db.Model):
     pv_name = db.Column(db.String(128))
     pv_name_short = db.Column(db.String(64))
     device = db.Column(db.String(8))
+    position = db.Column(db.Integer)
     comments = db.Column(db.String)
 
 class registeredUsers(db.Model):
