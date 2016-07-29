@@ -54,31 +54,67 @@ def decode_card_id(cardID):
     return facility,card_id
 
 
-
-@app.route('/')
-def plog():
-    # get the latest card data from db...
-    # last_event_id = PssLogData.query.with_entities(func.max(PssLogData.event_id).label('max_event_id')).first()
-    # last_events = PssLogData.query.filter_by(event_id=last_event_id.max_event_id).all()
-    last_events = PssLogData.query.filter_by(event_id=None).all()
+def fetch_db_lists(db_ref_id=None, ref_list=None):
+    last_events = PssLogData.query.filter_by(event_id=db_ref_id).all()
 
     # sort last events into users and remaining events
     # user events have a len(data) == 8 and pv_name == None
     user_events = []
     pss_events = []
     for event in last_events:
+        serial_event = event.serialise
         if ((len(event.data) == 8) and (event.pv_name == None)):
             # fetch the username based on the card id
             try:
-                event.user_name = registeredUsers.query.filter_by(card_id=event.data).first().user_name
+                serial_event['user_name'] = registeredUsers.query.filter_by(card_id=event.data).first().user_name
             except:
-            # some error handling if user not in database
-                event.user_name = "ID Not <a href='/register/"+ event.data +"'>Registered</a>"
+                # some error handling if user not in database
+                serial_event['user_name'] = "ID Not <a href='/register/" + event.data + "'>Registered</a>"
 
-            user_events.append(event)
+            if DEBUG:
+                print(serial_event)
+
+
+            print(serial_event['data'])
+            user_events.append(serial_event)
         else:
-            #print("PSS Event found")
-            pss_events.append(event)
+            # print("PSS Event found")
+            pss_events.append(serial_event)
+
+    if ref_list == "user":
+        return user_events
+    elif ref_list == "pss":
+        return pss_events
+    else:
+        return user_events,pss_events
+
+
+@app.route('/')
+def plog():
+    # get the latest card data from db...
+    # last_event_id = PssLogData.query.with_entities(func.max(PssLogData.event_id).label('max_event_id')).first()
+    # last_events = PssLogData.query.filter_by(event_id=last_event_id.max_event_id).all()
+    # last_events = PssLogData.query.filter_by(event_id=None).all()
+    #
+    # # sort last events into users and remaining events
+    # # user events have a len(data) == 8 and pv_name == None
+    # user_events = []
+    # pss_events = []
+    # for event in last_events:
+    #     if ((len(event.data) == 8) and (event.pv_name == None)):
+    #         # fetch the username based on the card id
+    #         try:
+    #             event.user_name = registeredUsers.query.filter_by(card_id=event.data).first().user_name
+    #         except:
+    #         # some error handling if user not in database
+    #             event.user_name = "ID Not <a href='/register/"+ event.data +"'>Registered</a>"
+    #
+    #         user_events.append(event)
+    #     else:
+    #         #print("PSS Event found")
+    #         pss_events.append(event)
+
+    user_events, pss_events = fetch_db_lists()
 
     misc_events = ['Start User Beam','Start Machine Studies','Start Maintenance','Radiation Survey','Search and Secure',
                    'Check/Adjust Flow Meter','Beam Dump','Scrape Beam','Exchange Bust Disc']
@@ -98,7 +134,8 @@ def rfid():
     mod_date = timestamp.split(" ")[0]
 
     # determine event_id
-    eid = find_cluster_num(timestamp)
+    #eid = find_cluster_num(timestamp)
+    eid = None
 
     # create the database entry and commit to file
     tmp = PssLogData(date=mod_date,time=mod_time,event_id=eid,data=cardID,device=device)
@@ -186,7 +223,13 @@ def ui():
 
         return jsonify(result=var)
 
-    return 'true'
+    if 'user_update' in request.form:
+        # return a list of db objects containing recently swiped users
+        e_user = fetch_db_lists(ref_list="user")
+        # print(e_user[0].serialise)
+        return jsonify(result=e_user)
+
+    return 'true' # shouldn't ever get here
 
 @app.route('/register/', methods=['GET', 'POST'])
 @app.route('/register/<string:new_card_id>')
