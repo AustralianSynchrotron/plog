@@ -1,7 +1,7 @@
 from flask import render_template,session,redirect,url_for,request,current_app,make_response,flash,jsonify
 
-from sqlalchemy.sql import update,select
-from sqlalchemy.sql import extract,and_,or_,func
+#from sqlalchemy.sql import update,select
+#from sqlalchemy.sql import extract,and_,or_,func
 import ldap
 
 from plog import app
