@@ -2,7 +2,6 @@ from flask import render_template,session,redirect,url_for,request,current_app,m
 
 from sqlalchemy.sql import update,select
 from sqlalchemy.sql import extract,and_,or_,func
-from wtforms import Form,StringField,SelectField,SubmitField,validators
 import ldap
 
 from plog import app
