@@ -43,9 +43,9 @@ def onChange(pvname=None, value=None, char_value=None, timestamp=None, enum_list
 master_shutter = epics.PV("PP00:MASTER_SHUTTER_ENABLE_STATUS") # Master Shutter status
 master_shutter.add_callback(callback=onChange,enum_list=SHUTTER_STATE)
 br_state = epics.PV("PP00:LINAC_BR_ACCESS_MODE_STATUS") # BR Status
-br_state.add_callback(callback=onChange,enum_list=SHUTTER_STATE)
+br_state.add_callback(callback=onChange,enum_list=ACCESS_STATE)
 sr_state = epics.PV("PP00:SR_ACCESS_MODE_STATUS") # SR Status
-sr_state.add_callback(callback=onChange,enum_list=SHUTTER_STATE)
+sr_state.add_callback(callback=onChange,enum_list=ACCESS_STATE)
 sr_sw_key = epics.PV("PP00:SR_SW_LAB_KEY_STATUS") # SR SW Labrynth Door Keys State
 sr_sw_key.add_callback(callback=onChange,enum_list=KEY_STATE)
 sr_sw_door = epics.PV("PP00:SR_SW_LAB_DOOR_STATUS") # SR SW Labrynth Door State
